@@ -1,8 +1,5 @@
 name: TeamWorkflow
 
-env:
-  ACTIONS_STEP_DEBUG: true
-
 on:
     push:
         branches:
@@ -15,22 +12,24 @@ jobs:
         container:
             image: node
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+            -   name: Checkout code
+                uses: actions/checkout@v3
 
-            - name: Install dependencies
-              working-directory: BdeHandin
-              run: npm install 
+            -   name: Install dependencies
+                working-directory: BdeHandin
+                run: npm install 
 
-            - name: Build website
-              working-directory: BdeHandin
-              run: npm run build
+            -   name: Build website
+                working-directory: BdeHandin
+                run: npm run build
             
-            - name: FTP delivery
-              uses: SamKirkland/FTP-Deploy-Action@4.3.3
-              with:
-                  server: ${{ vars.FTP_SERVER }}
-                  username: ${{ secrets.FTP_USERNAME }}
-                  password: ${{ secrets.FTP_PASSWORD }}
-                  server-dir: /test/todo/ # Absolute path for deployment folder
-                  local-dir: BdeHandin/dist/ # Ensure trailing slash for local directory
+            -   name: FTP delivery
+                uses: SamKirkland/FTP-Deploy-Action
+                with:
+                    server: ${{ vars.FTP_SERVER }}
+                    username: ${{ secrets.FTP_USERNAME }}
+                    password: ${{ secrets.FTP_PASSWORD }}
+                    server dir: test/todo/ # test.sustainabilityproject.one/todo/
+                    local-dir: BdeHandin/dist/ # trailing slash is important
+
+            
