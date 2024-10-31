@@ -24,13 +24,12 @@ jobs:
                 run: npm run build
             
             -   name: FTP delivery
-                working-directory: BdeHandin
                 uses: SamKirkland/FTP-Deploy-Action@4.3.3
                 with:
-                 server: ${{ vars.FTP_SERVER }}
-                 username: ${{ secrets.FTP_USERNAME }}
-                 password: ${{ secrets.FTP_PASSWORD }}
-                 server dir: test/todo/ # test.sustainabilityproject.one/todo/
-                 local-dir: dist/ # trailing slash is important
+                    server: ${{ vars.FTP_SERVER }}
+                    username: ${{ secrets.FTP_USERNAME }}
+                    password: ${{ secrets.FTP_PASSWORD }}
+                    server dir: test/todo/ # test.sustainabilityproject.one/todo/
+                    local-dir: BdeHandin/dist/ # trailing slash is important
 
             
