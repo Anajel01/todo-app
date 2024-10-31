@@ -5,18 +5,18 @@ on:
         branches:
             - main
 
-job:
+jobs:
     integration-delivery:
         runs-on: ubuntu-latest
         enviornment: Test
         container:
             image:none
         steps:
-            name: Checkout code
-            uses: actions/checkout@v3
+            -   name: Checkout code
+                uses: actions/checkout@v3
 
-            name: Install dependencies
-            run: npm install 
+            -   name: Install dependencies
+                run: npm install 
 
-            name: Build website
-            run: npm run build
+            -   name: Build website
+                run: npm run build
