@@ -8,7 +8,7 @@ on:
 jobs:
     integration-delivery:
         runs-on: ubuntu-latest
-        enviornment: Test
+        environment: Test
         container:
             image:none
         steps:
