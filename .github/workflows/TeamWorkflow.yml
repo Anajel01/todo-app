@@ -31,5 +31,18 @@ jobs:
                     password: ${{ secrets.FTP_PASSWORD }}
                     server-dir: test/todo/ # test.sustainabilityproject.one/todo/
                     local-dir: BdeHandin/dist/ # trailing slash is important
+            
+            -   name: Install TestCafe
+                run: npm install -g testcafe
+
+            -   name: Update APT
+                run: apt-get update
+
+            -   name: Install Chromium
+                run: apt-get install -y chromium
+            
+            -   name: Run tests
+                run: testcafe chromium:headless test/*
+                
 
             
