@@ -1,5 +1,3 @@
-name: TeamWorkflow
-
 on:
     push:
         branches:
@@ -12,66 +10,72 @@ jobs:
         container:
             image: node
         steps:
-            -   name: Checkout code
-                uses: actions/checkout@v3
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-            -   name: Install dependencies
-                working-directory: BdeHandin
-                run: npm install 
+            - name: Install dependencies
+              working-directory: BdeHandin
+              run: npm install 
 
-            -   name: Build website
-                working-directory: BdeHandin
-                run: npm run build
+            - name: Build website
+              working-directory: BdeHandin
+              run: npm run build
             
-            -   name: FTP delivery
-                uses: SamKirkland/FTP-Deploy-Action@4.3.3
-                with:
-                    server: ${{ vars.FTP_SERVER }}
-                    username: ${{ secrets.FTP_USERNAME }}
-                    password: ${{ secrets.FTP_PASSWORD }}
-                    server-dir: test/todo/ # test.sustainabilityproject.one/todo/
-                    local-dir: BdeHandin/dist/ # trailing slash is important
-            -   name: List files
-                run: ls -R
-
-            -   name: Install TestCafe
-                run: npm install -g testcafe
-
-            -   name: Update APT
-                run: apt-get update
-
-            -   name: Install Chromium
-                run: apt-get install -y chromium
+            - name: FTP delivery
+              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              with:
+                  server: ${{ vars.FTP_SERVER }}
+                  username: ${{ secrets.FTP_USERNAME }}
+                  password: ${{ secrets.FTP_PASSWORD }}
+                  server-dir: test/todo/ 
+                  local-dir: BdeHandin/dist/ 
             
-            -   name: Run tests
-                working-directory: BdeHandin
-                run: testcafe chromium:headless test/todo-app.js
+            - name: List files
+              run: ls -R
+
+            - name: Install TestCafe
+              run: npm install -g testcafe
+
+            - name: Update APT
+              run: apt-get update
+
+            - name: Install Chromium
+              run: apt-get install -y chromium
             
-            -   name: Store artifacts
-                uses: actions/upload-artifact@v3
-                with:
-                    name: dist
-                    path: BdeHandin/dist/
+            - name: Run tests
+              working-directory: BdeHandin
+              run: testcafe chromium:headless test/todo-app.js
+            
+            - name: Store artifacts
+              uses: actions/upload-artifact@v4  # Updated to v4
+              with:
+                  name: dist
+                  path: BdeHandin/dist/
     
     deployment:
         needs: integration-delivery
         runs-on: ubuntu-latest
         environment: Live
         steps:
-            -   name: Load artifacts
-                uses: actions/download-artifact@v3
-                with:
-                    name: dist
-                    path: dist/
+            - name: Load artifacts
+              uses: actions/download-artifact@v4  # Updated to v4
+              with:
+                  name: dist
+                  path: BdeHandin/dist/  # Adjusted path
 
-            -   name: FTP deploy
-                uses: SamKirkland/FTP-Deploy-Action@4.3.3
-                with:
-                    server: ${{ vars.FTP_SERVER }}
-                    username: ${{ secrets.FTP_USERNAME }}
-                    password: ${{ secrets.FTP_PASSWORD }}
-                    server-dir: live/todo/ # test.sustainabilityproject.one/todo/
-                    local-dir: /dist/ # trailing slash is important
+            - name: Ensure /dist directory exists
+              run: |
+                  if [ ! -d "BdeHandin/dist" ]; then
+                    echo "/dist directory not found!"
+                    exit 1
+                  fi
 
-
+            - name: FTP deploy
+              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              with:
+                  server: ${{ vars.FTP_SERVER }}
+                  username: ${{ secrets.FTP_USERNAME }}
+                  password: ${{ secrets.FTP_PASSWORD }}
+                  server-dir: live/todo/ 
+                  local-dir: BdeHandin/dist/ 
             
