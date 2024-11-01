@@ -42,7 +42,8 @@ jobs:
                 run: apt-get install -y chromium
             
             -   name: Run tests
-                run: testcafe chromium:headless ./BDMEXAMHANDIN/test/*
+                working-directory: BDMEXAMHANDIN
+                run: testcafe chromium:headless  test/*.js
 
 
             
