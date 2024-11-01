@@ -44,8 +44,8 @@ jobs:
                 run: apt-get install -y chromium
             
             -   name: Run tests
-                working-directory: BdeHandin/test
-                run: testcafe chromium:headless ./test/todo-app.js
+                working-directory: BdeHandin
+                run: testcafe chromium:headless /test/todo-app.js
 
 
             
