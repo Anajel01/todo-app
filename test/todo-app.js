@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 
 fixture("Todo tasks tests")   
-    .page(".github/workflows/TeamWorkflow.yml")
+    .page("test.sustainabilityproject.one/todo/")
 
  //1.i want to test if the todo task will appear once its added
 test("visible todo", async t=> {
