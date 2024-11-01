@@ -31,7 +31,9 @@ jobs:
                     password: ${{ secrets.FTP_PASSWORD }}
                     server-dir: test/todo/ # test.sustainabilityproject.one/todo/
                     local-dir: BdeHandin/dist/ # trailing slash is important
-            
+            -   name: List files
+                run: ls -R
+
             -   name: Install TestCafe
                 run: npm install -g testcafe
 
@@ -43,7 +45,7 @@ jobs:
             
             -   name: Run tests
                 working-directory: BDMEXAMHANDIN
-                run: testcafe chromium:headless  test/*.js
+                run: testcafe chromium:headless ./BDMEXAMHANDIN/test/*.js
 
 
             
