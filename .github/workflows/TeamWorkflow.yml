@@ -45,7 +45,7 @@ jobs:
             
             -   name: Run tests
                 working-directory: BdeHandin
-                run: testcafe chromium:headless /test/todo-app.js
+                run: testcafe chromium:headless test/todo-app.js
 
 
             
