@@ -6,6 +6,7 @@ interface Todo {
   title: string; // The text of the todo
   completed: boolean; // Whether the todo is completed or not
   dueDate?: string; // Optional due date for the todo
+  dueTime?: string; // Optional due time for the todo
 }
 
 // Step 2: Initialize the todos array
@@ -19,12 +20,13 @@ const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 // Step 4: Function to add a new todo
 // const addTodo = () => {} this is the basic structure of the code, always type that out before the code
 // void means there is no returns. String means they are pushing out words, cannot push out numbers. 
-const addTodo = (text: string, dueDate: string): void => { // void means there is no returns. String means they are pushing out words, cannot push out numbers. 
+const addTodo = (text: string, dueDate: string, dueTime: string): void => { // void means there is no returns. String means they are pushing out words, cannot push out numbers. 
   const newTodo: Todo = {          // this is like a variable
     id: Date.now(),
     title: text,
     completed: false,
-    dueDate // Add the due date to the new todo
+    dueDate, // Add the due date to the new todo
+    dueTime  // Add the due time to the new todo
   };
   todos.push(newTodo); // we reference the Todo from line 21, we only use command push for arrays
   console.log("Todo added: ", todos); // console log to test if stuff works. 
@@ -45,6 +47,7 @@ const renderTodos = (): void => { // void because no return - what we are doing 
     li.innerHTML = `                      
       <span>${todo.title}</span>
       ${todo.dueDate ? `<span class="due-date">Due: ${todo.dueDate}</span>` : ''}
+      ${todo.dueTime ? `<span class="due-time">Time: ${todo.dueTime}</span>` : ''}
       <input type="checkbox" ${todo.completed ? 'checked' : ''} class="complete-checkbox" id="checkbox"> Mark as completed
       <button>Remove</button>
       <button id="editBtn">Edit</button>
@@ -82,8 +85,9 @@ todoForm.addEventListener('submit', (e) => {    // e in here stands for an event
   e.preventDefault();     // this function prevents the page from reloading every time you press submit. basically removes the "default" function of reloading the page every time you submit something
   const text = todoInput.value.trim();
   const dueDate = (document.getElementById('todo-due-date') as HTMLInputElement).value; // Get due date from the input
+  const dueTime = (document.getElementById('todo-due-time') as HTMLInputElement).value; // Get due time from the input
   if (text !== '') {
-    addTodo(text, dueDate); // Pass the due date to the addTodo function
+    addTodo(text, dueDate, dueTime); // Pass the due date and due time to the addTodo function
   }        
 });
 
@@ -163,25 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to toggle the completed status of a todo + 
 // Add a button to toggle the completed status of a todo item
 
-// Option 2: Add a button to clear all completed todos
-// Add a button to clear all completed todos
-// Function to clear all completed todos
-// Add a button to toggle all todos
-
-// Option 3: Add a button to toggle all todos
-// Edit a todo item and update it
-// Add an input field to edit a todo item
-// Save the updated todo item
-// Cancel the editing of a todo item
-// Add a button to cancel the editing of a todo item
-
-// Option 4: Add a button to filter todos by status
-// Add a button to filter todos by status
-// Function to filter todos by status
-
-// Option 5: Add a button to sort todos by status
-// Add a button to sort todos by status
-// Function to sort todos by status
 
 // Option 6: Due Date for Todos:
 // Add a date input field to set a due date for each todo item.
@@ -189,46 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Highlight overdue todos.
 // Priority Levels:
 
-// Option 7: Add a dropdown to set the priority level (e.g., Low, Medium, High) for each todo item.
-// Display the priority level next to each todo item.
-// Sort todos by priority.
-// Search Functionality:
 
-// Option 8: Add a search input field to filter todos based on the search query.
-// Display only the todos that match the search query.
-// Category Tags:
-
-// Option 9: Add a text input field to assign category tags to each todo item.
-// Display the tags next to each todo item.
-// Filter todos by category tags.
-// Progress Indicator:
-
-// Option 10: Add a progress bar to show the percentage of completed todos.
-// Update the progress bar as todos are marked as completed or incomplete.
-// Dark Mode Toggle:
-
-// Option 11: Add a button to toggle between light and dark modes.
-// Change the app's theme based on the selected mode.
-// Export/Import Todos:
-
-// Option 12: Add buttons to export the list of todos to a JSON file.
-// Add functionality to import todos from a JSON file.
-// Notifications:
-
-// Option 13: Add notifications to remind users of due todos.
-// Use the Notification API to show browser notifications.
-
-// Option 14: Local Storage:
-// Save the list of todos to local storage.
-// Retrieve the todos from local storage on page load.
-// Add a button to clear all todos from local storage.
-
-// Option 15: JSDOC Comments:
-// Add JSDoc comments to document the functions and interfaces in the code.
-// Link : https://jsdoc.app/
-
-// Optional 16: Handle Errors:
-// Add error handling for user input validation. Show red text or border for invalid input.
-// Display error messages for invalid input.
 
 
