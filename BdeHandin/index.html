@@ -5,18 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
       <h1>Todo App</h1>
       <form class="todo-form">
         <input type="text" id="todo-input" placeholder="Add a new todo" />
+        <input type="date" id="todo-due-date" placeholder="Due date" />
+        <input type="time" id="todo-due-time" placeholder="Due time" />
         <button type="submit" id="submit">Add</button>
       </form>
-      <!-- error handling message : CSS added:: .input-error & #error-message -->
+
       <p id="error-message">Please enter a todo item</p>
       <ul class="todo-list" id="todo-list"></ul>
-
       <input type="color" id="colorPicker" />
     </div>
     <script type="module" src="/src/main.ts"></script>
