@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 
 fixture("Todo tasks tests")   
-    .page("http://localhost:5173/todo/") //test.sustainabilityproject.one/todo/
+    .page("test.sustainabilityproject.one/todo/") //test.sustainabilityproject.one/todo/
 
  //1.i want to test if the todo task will appear once its added
 test("visible todo", async t=> {
@@ -57,4 +57,3 @@ test("display due time for todo", async t => {
             .find(".due-time").textContent).contains("Time: 14:30");
 });
 
-//test with: testcafe opera BdeHandin/test/todo-app.js
